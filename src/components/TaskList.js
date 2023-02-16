@@ -1,6 +1,7 @@
 import { ScrollView, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useState, useEffect } from "react";
 import TaskCard from "./TaskCard";
+import AddTask from "./AddTask";
 
 export default function TaskList() {
   const [tasks, setTasks] = useState();
@@ -18,20 +19,23 @@ export default function TaskList() {
     // we need to send a patch request to `/tasks/${task.tasksID}`
     // in the body we need to send { done }
     fetch(`https://todo-c9-api-bc.web.app/tasks/${task.tasksID}`, {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ done }),
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ done }),
     })
-        .then(res => res.json())
-        .then(setTasks)
-        .catch(console.error);
+      .then((res) => res.json())
+      .then(setTasks)
+      .catch(console.error);
   };
 
   return (
     <ScrollView>
       <Text style={styles.h1}>To Do List</Text>
+
+      <AddTask setTasks={setTasks} />
+
       {!tasks ? (
         <Text>Loading ...</Text>
       ) : (
