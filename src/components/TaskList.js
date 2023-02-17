@@ -31,11 +31,8 @@ export default function TaskList() {
   };
 
   return (
-    <ScrollView>
-      <Text style={styles.h1}>To Do List</Text>
-
+    <ScrollView style={styles.bg}>
       <AddTask setTasks={setTasks} />
-
       {!tasks ? (
         <Text>Loading ...</Text>
       ) : (
@@ -44,7 +41,7 @@ export default function TaskList() {
             onPress={() => toggleDone(element)}
             key={element.tasksID}
           >
-            <TaskCard data={element} />
+            <TaskCard data={element} setTasks={setTasks} />
           </TouchableOpacity>
         ))
       )}
@@ -54,14 +51,6 @@ export default function TaskList() {
 
 const styles = StyleSheet.create({
   bg: {
-    flex: 1,
-    justifyContent: "center",
-  },
-
-  h1: {
-    fontSize: 30,
-    fontWeight: "700",
-    display: "Flex",
-    textAlign: "center",
+    backgroundColor: "#88CCDD",
   },
 });

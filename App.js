@@ -19,7 +19,7 @@ export default function App() {
       <NavigationContainer>
         <StatusBar style="auto" />
         <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen name="Home" 
+          <Stack.Screen name="Todo List" 
             component={TaskList} 
             tasks={tasks} 
             setTasks={setTasks} />
