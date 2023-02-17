@@ -1,23 +1,17 @@
-import { ScrollView, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { ScrollView, Text, TouchableOpacity } from "react-native";
 import TaskCard from "./TaskCard";
-import AddTask from "./AddTask";
+import { styles } from "../../styles";
 
-export default function TaskList() {
-  const [tasks, setTasks] = useState();
-
-  // fetch task in UseEffect
+export default function TaskList({ tasks, setTasks }) {
   useEffect(() => {
     fetch("https://todo-c9-api-bc.web.app/tasks")
       .then((res) => res.json())
       .then(setTasks)
       .catch(console.error);
   }, []);
-
   const toggleDone = (task) => {
     const done = !!!task.done; // true, false, undefined
-    // we need to send a patch request to `/tasks/${task.tasksID}`
-    // in the body we need to send { done }
     fetch(`https://todo-c9-api-bc.web.app/tasks/${task.tasksID}`, {
       method: "PATCH",
       headers: {
@@ -29,10 +23,8 @@ export default function TaskList() {
       .then(setTasks)
       .catch(console.error);
   };
-
   return (
-    <ScrollView style={styles.bg}>
-      <AddTask setTasks={setTasks} />
+    <ScrollView style={styles.scrollView}>
       {!tasks ? (
         <Text>Loading ...</Text>
       ) : (
@@ -48,9 +40,3 @@ export default function TaskList() {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  bg: {
-    backgroundColor: "#88CCDD",
-  },
-});

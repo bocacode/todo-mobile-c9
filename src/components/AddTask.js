@@ -1,5 +1,6 @@
-import React, { useState } from "react"; // Line not required
-import { View, Text, TextInput, Pressable, StyleSheet } from "react-native";
+import { useState } from "react"; // Line not required
+import { View, Text, TextInput, Pressable } from "react-native";
+import { styles } from "../../styles";
 
 export default function AddTask({ setTasks }) {
   const [task, setTask] = useState("");
@@ -22,48 +23,11 @@ export default function AddTask({ setTasks }) {
       .catch(console.error);
   };
   return (
-    <>
-      <View style={styles.container}>
-        <TextInput style={styles.input} value={task} onChangeText={setTask} />
-        <Pressable style={styles.button} onPress={handleAddNewTask}>
-          <Text style={styles.text}>Add</Text>
-        </Pressable>
-      </View>
-    </>
+    <View style={styles.addTaskContainer}>
+      <TextInput style={styles.input} value={task} onChangeText={setTask} />
+      <Pressable style={styles.button} onPress={handleAddNewTask}>
+        <Text style={styles.text}>Add</Text>
+      </Pressable>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "row",
-    backgroundColor: "#d0d0d0",
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 4,
-    display: 'inline',
-    width: "64%",
-    backgroundColor: "#fff",
-  },
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 4,
-    backgroundColor: '#109910',
-    display: 'inline',
-    width: "25%",
-    height: 44,
-    margin: 10,
-  },
-  text: {
-    fontSize: 16,
-    lineHeight: 21,
-    fontWeight: 'bold',
-    letterSpacing: 0.25,
-    color: 'white',
-  },
-});
